@@ -17,12 +17,8 @@
   --mu:#6b7280;
   --ln:#e6e8ec;
   --ac:#fdda24;
-  --gold1:#ffe66d;
-  --gold2:#f5c518;
-  --gold3:#c99700;
   --ok:#00b37e;
   --bad:#dc2626;
-  --dk:#1f2124;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
@@ -60,7 +56,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
   }
 }
 
-#v{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:98px}
+#v{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:28px}
 #v::-webkit-scrollbar{display:none}
 
 h1{font-size:17px;font-weight:600;margin:0;letter-spacing:-.01em}
@@ -91,7 +87,6 @@ small{font-size:11.5px;color:var(--mu);font-weight:400}
   transition:transform .15s,background .15s;
 }
 .ib:active{transform:scale(.94)}
-.ib.adm-on{background:var(--tx);color:var(--ac);border-color:var(--tx)}
 .bell{position:relative}
 .bn{
   position:absolute;
@@ -210,12 +205,12 @@ small{font-size:11.5px;color:var(--mu);font-weight:400}
 }
 .tr{display:flex;align-items:center;gap:8px}
 .chp{width:30px;height:21px;border-radius:5px;border:1.5px solid currentColor;opacity:.45}
-.bk{margin-left:auto;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;text-align:right;opacity:.85}
+.bk{margin-left:auto;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;text-align:right;opacity:.85}
 .bd{background:#dc2626;color:#fff;font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px}
 .mid{font-size:23px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .tk{height:6px;border-radius:99px;background:rgba(128,128,128,.26);margin-top:8px;overflow:hidden}
 .tk i{display:block;height:100%;border-radius:99px;transition:width .5s}
-.nm{font-weight:600;font-size:14px}
+.nm{font-weight:600;font-size:15px}
 
 .cd-ft{
   display:flex;
@@ -236,7 +231,6 @@ small{font-size:11.5px;color:var(--mu);font-weight:400}
   padding:16px;
   margin-bottom:14px;
 }
-.pt{display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px}
 .br{height:9px;border-radius:99px;background:var(--ln);overflow:hidden}
 .br i{display:block;height:100%;background:var(--c,var(--tx));border-radius:inherit}
 .lg{display:flex;justify-content:space-between;font-size:11.5px;margin-top:7px;color:var(--mu)}
@@ -265,17 +259,19 @@ small{font-size:11.5px;color:var(--mu);font-weight:400}
 .mv:last-child{border:0;padding-bottom:2px}
 .mv:first-child{padding-top:2px}
 .mv .ic{
-  width:36px;
-  height:36px;
-  border-radius:11px;
+  width:38px;
+  height:38px;
+  border-radius:12px;
   background:var(--bg);
   border:1px solid var(--ln);
   display:grid;
   place-items:center;
   font-size:17px;
   flex:none;
+  transition:transform .15s,border-color .15s;
 }
-.mv>div:nth-child(2){flex:1;min-width:0}
+.mv .ic:active{transform:scale(.92);border-color:var(--tx)}
+.mv-info{flex:1;min-width:0;cursor:pointer}
 .mv-t{font-weight:500;font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mv b{font-weight:600;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .pos{color:var(--ok)}
@@ -301,9 +297,10 @@ small{font-size:11.5px;color:var(--mu);font-weight:400}
 .trk{height:6px;border-radius:99px;background:var(--ln);overflow:hidden;margin:8px 0 6px}
 .trk i{display:block;height:100%;border-radius:99px;background:var(--tx)}
 
+/* Navegación inferior de 4 pestañas con Registrar integrado */
 nav{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(4,1fr);
   background:var(--sf);
   border-top:1px solid var(--ln);
   padding:7px 6px calc(7px + env(safe-area-inset-bottom,0px));
@@ -317,26 +314,11 @@ nav button{
   align-items:center;
   gap:3px;
 }
-nav button span{padding:4px 18px;border-radius:99px;display:grid;transition:background .2s}
+nav button span{padding:4px 14px;border-radius:99px;display:grid;transition:background .2s}
 nav .on{color:var(--tx);font-weight:600}
 nav .on span{background:var(--ac);color:#1f2124}
-
-.fab{
-  position:absolute;
-  right:18px;
-  bottom:82px;
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  background:var(--tx);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  box-shadow:0 10px 24px -6px rgba(0,0,0,.35);
-  z-index:6;
-  transition:transform .15s;
-}
-.fab:active{transform:scale(.93)}
+nav .reg-btn span{background:var(--tx);color:#fff}
+nav .reg-btn{color:var(--tx);font-weight:600}
 
 .sh{position:absolute;inset:0;background:rgba(15,17,21,.48);display:none;align-items:flex-end;z-index:10;backdrop-filter:blur(2px)}
 .sh.o{display:flex}
@@ -421,7 +403,7 @@ input,select{
 #tt{
   position:absolute;
   left:50%;
-  bottom:88px;
+  bottom:82px;
   transform:translateX(-50%);
   background:var(--tx);
   color:#fff;
@@ -522,7 +504,6 @@ input,select{
   color:var(--tx);
   animation:fi .55s .9s both;
 }
-.sp-title span{font-weight:300;color:var(--mu)}
 @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 .ld{width:156px;height:3.5px;background:var(--ln);border-radius:9px;overflow:hidden}
@@ -560,51 +541,9 @@ input,select{
   background:var(--bg);
   border:1px solid var(--ln);
   color:var(--mu);
-  margin-top:3px;
 }
 .sync-pill i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block}
 .sync-pill.off i{background:#f59e0b}
-.cms-banner{
-  background:var(--tx);
-  color:#fff;
-  padding:7px 20px;
-  font-size:11.5px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.cms-banner span{color:var(--ac);font-weight:600}
-.sw-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 0;
-  border-bottom:1px solid var(--ln);
-}
-.sw-row:last-child{border:0}
-.tgl{
-  width:42px;
-  height:24px;
-  border-radius:99px;
-  background:var(--ln);
-  position:relative;
-  transition:background .2s;
-  flex:none;
-}
-.tgl::after{
-  content:"";
-  position:absolute;
-  top:3px;
-  left:3px;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:#fff;
-  transition:transform .2s;
-  box-shadow:0 1px 3px rgba(0,0,0,.2);
-}
-.tgl.on{background:var(--ok)}
-.tgl.on::after{transform:translateX(18px)}
 
 @media(prefers-reduced-motion:no-preference){
   .bd{animation:pl 1.6s infinite ease-in-out}
@@ -618,11 +557,10 @@ input,select{
 </head>
 <body>
 <div class="ph">
-  <div id="cms-bar"></div>
   <div id="v"></div>
-  <button class="fab" onclick="ef()" aria-label="Registrar movimiento" id="fb"></button>
   <nav>
     <button data-v="h" onclick="go('h')"><span id="n1"></span>Inicio</button>
+    <button data-v="r" class="reg-btn" onclick="ef()"><span id="n4"></span>Registrar</button>
     <button data-v="c" onclick="go('c')"><span id="n2"></span>Gráficos</button>
     <button data-v="m" onclick="go('m')"><span id="n3"></span>Tarjetas</button>
   </nav>
@@ -679,7 +617,7 @@ input,select{
         window.applyRemoteState(snap.data());
         isRemoteUpdate = false;
       }
-    }, (err) => {
+    }, () => {
       window.FB_SYNC.connected = false;
     });
   } catch (e) {
@@ -694,14 +632,12 @@ const IC={
   h:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>',
   c:'<path d="M5 20V11M12 20V4M19 20v-8"/>',
   m:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/>',
-  x:'<path d="M12 5v14M5 12h14"/>',
+  r:'<rect x="4" y="3" width="16" height="18" rx="3"/><path d="M9 8h6M9 12h6M12 15v4M10 17h4"/>',
   w:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.1"/>',
   s:'<path d="M4 8V5h3M20 8V5h-3M4 16v3h3M20 16v3h-3M4 12h16"/>',
   bl:'<path d="M6 9a6 6 0 0112 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2 2 0 004 0"/>',
   ch:'<path d="M9 18l6-6-6-6"/>',
-  adm:'<path d="M12 2l7 4v6c0 5-3.5 9.5-7 10-3.5-.5-7-5-7-10V6l7-4z"/><circle cx="12" cy="11" r="2.5"/>',
-  ed:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>',
-  dl:'<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>'
+  ed:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>'
 };
 const ic=(n,s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
 
@@ -740,26 +676,14 @@ const COIN_BACK=(size=104)=>`
 
 const LG_MINI=()=>`<div class="coin-mini">${COIN_FRONT(40,'hd')}</div>`;
 
-const DEFAULT_CMS=()=>({
-  appName:'Billfold Digital',
-  userName:'Valeria',
-  accentColor:'#fdda24',
-  currency:'USD',
-  defaultThr:20,
-  allowScan:true,
-  allowUserCards:true,
-  bannerText:''
-});
-
-const ADMIN_USER='anderson';
-const ADMIN_PASS='anderson';
-let IS_ADMIN=false;
-try{IS_ADMIN=sessionStorage.getItem('bf_admin')==='1'}catch(e){}
-
 const KINDS=[['Pago pendiente','🕒'],['Pago por realizar','💳'],['Recibir quincena','💵'],['Otro','🔔']];
 const nid=()=>Date.now()+Math.floor(Math.random()*1e6);
 let BX='in';
 const unread=()=>S.notes.filter(n=>n.box=='in'&&!n.read).length;
+
+/* Etiqueta limpia de la tarjeta: Banco + Tipo */
+const cardTypeLabel=c=>c.type==='credito'?'Crédito':'Débito';
+const cardTitle=c=>`${c.bank||'Banco'} · ${cardTypeLabel(c)}`;
 
 function sync(){
   S.notes=S.notes||[];
@@ -768,6 +692,7 @@ function sync(){
   let ch=0;
   S.cards.forEach(c=>{
     const s=st(c);
+    const lbl=cardTitle(c);
     if(s.low&&!S.ak[c.id]){
       S.ak[c.id]=1;
       S.notes.push({
@@ -775,7 +700,7 @@ function sync(){
         box:'in',
         kind:'Alerta de saldo bajo',
         ic:'⚠️',
-        title:'Saldo bajo en '+c.name,
+        title:'Saldo bajo en '+lbl,
         body:'Te quedan '+fm(s.d)+' ('+Math.max(0,Math.round(s.d/Math.max(c.d0,1)*100))+'% de tu límite). Revisa antes de pagar.',
         date:now.toISOString(),
         read:false
@@ -830,7 +755,7 @@ function nfr(){
   sheet(`
     <h2 style="font-size:16px;margin-bottom:12px">Nueva notificación</h2>
     <label>Tipo</label>
-    <div class="chs">${KINDS.map((k,i)=>`<button class="chip ${F.k==i?'on':''}" onclick="F.k=${i};nfr()">${k[1]} ${k[0]}</button>`).join('')}</div>
+    <div class="chs">${KINDS.map((k,i)=>`<button type="button" class="chip ${F.k==i?'on':''}" onclick="F.k=${i};nfr()">${k[1]} ${k[0]}</button>`).join('')}</div>
     <label>Título (opcional)</label>
     <input placeholder="Ej. Pagar tarjeta Visa" value="${esc(F.t)}" oninput="F.t=this.value">
     <label>Monto (opcional)</label>
@@ -838,8 +763,8 @@ function nfr(){
     <label>Fecha del aviso</label>
     <input type="date" value="${F.dt}" oninput="F.dt=this.value">
     <div class="row" style="margin:16px 0 0">
-      <button class="sb" onclick="cl()">Cancelar</button>
-      <button class="pb" onclick="nsv()">Programar</button>
+      <button type="button" class="sb" onclick="cl()">Cancelar</button>
+      <button type="button" class="pb" onclick="nsv()">Programar</button>
     </div>
   `);
 }
@@ -863,16 +788,14 @@ function nsv(){
   toast('Notificación programada');
 }
 
-$('#fb').innerHTML=ic('x',24);
-$('#n1').innerHTML=ic('h',21);
-$('#n2').innerHTML=ic('c',21);
-$('#n3').innerHTML=ic('m',21);
+$('#n1').innerHTML=ic('h',20);
+$('#n4').innerHTML=ic('r',20);
+$('#n2').innerHTML=ic('c',20);
+$('#n3').innerHTML=ic('m',20);
 
 const fm=n=>{
-  const cur=(S&&S.cms&&S.cms.currency)||'USD';
-  const loc=cur==='EUR'?'es-ES':cur==='MXN'?'es-MX':cur==='GTQ'?'es-GT':cur==='CRC'?'es-CR':'en-US';
   try{
-    return new Intl.NumberFormat(loc,{style:'currency',currency:cur}).format(n);
+    return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
   }catch(e){
     return '$'+Number(n||0).toFixed(2);
   }
@@ -912,11 +835,11 @@ const tc=h=>{
 const dy=k=>new Date(Date.now()-864e5*k).toISOString();
 
 const seed=()=>({
-  cms:DEFAULT_CMS(),
+  userName:'Valeria',
   cards:[
-    {id:1,name:'Visa Oro Compras',bank:'Banco Agrícola',type:'credito',color:'#fdda24',d0:1200,thr:20},
-    {id:2,name:'Débito Planilla',bank:'BAC Credomatic',type:'debito',color:'#00c389',d0:850,thr:20},
-    {id:3,name:'Cashback Gasolina',bank:'Banco Cuscatlán',type:'credito',color:'#e31c79',d0:400,thr:20}
+    {id:1,bank:'Banco Agrícola',type:'credito',color:'#fdda24',d0:1200,thr:20},
+    {id:2,bank:'BAC Credomatic',type:'debito',color:'#00c389',d0:850,thr:20},
+    {id:3,bank:'Banco Cuscatlán',type:'credito',color:'#e31c79',d0:400,thr:20}
   ],
   ex:[
     {id:1,card:1,cat:'Súper',amt:210.5,note:'Super Selectos quincena',date:dy(4)},
@@ -936,13 +859,6 @@ let S=null;
 try{S=JSON.parse(localStorage.getItem('radar'))}catch(e){}
 if(!S||!S.cards)S=seed();
 S.customCats=S.customCats||[];
-S.cms=Object.assign(DEFAULT_CMS(),S.cms||{});
-
-function applyTheme(){
-  document.documentElement.style.setProperty('--ac',S.cms.accentColor||'#fdda24');
-  document.title=S.cms.appName||'Billfold Digital';
-}
-applyTheme();
 
 const save=(pushCloud=true)=>{
   try{localStorage.setItem('radar',JSON.stringify(S))}catch(e){}
@@ -953,9 +869,7 @@ window.getAppState=()=>S;
 window.applyRemoteState=(remote)=>{
   if(!remote||!remote.cards)return;
   S=Object.assign(seed(),remote);
-  S.cms=Object.assign(DEFAULT_CMS(),remote.cms||{});
   S.customCats=remote.customCats||[];
-  applyTheme();
   try{localStorage.setItem('radar',JSON.stringify(S))}catch(e){}
   render();
 };
@@ -965,7 +879,10 @@ const st=c=>{
         d=c.d0-g;
   return{g,d,low:d<=c.d0*c.thr/100,p:g/Math.max(g+Math.max(d,0),1)*100};
 };
-const cn=id=>(S.cards.find(c=>c.id==id)||{name:'Tarjeta eliminada'}).name;
+const cn=id=>{
+  const c=S.cards.find(x=>x.id==id);
+  return c?cardTitle(c):'Tarjeta eliminada';
+};
 const fd=d=>new Date(d).toLocaleDateString('es-SV',{day:'numeric',month:'short'});
 
 function dateKey(iso){
@@ -985,6 +902,7 @@ function dateLabel(iso){
 
 let V='h',ID=null,F={};
 
+/* Tarjeta: Banco como identificador principal + tipo Crédito/Débito */
 const card=(c,x='',showFooter=true)=>{
   const s=st(c),
         t=tc(c.color),
@@ -999,7 +917,7 @@ const card=(c,x='',showFooter=true)=>{
       <div class="tr">
         <span class="chp"></span>
         ${s.low?`<span class="bd">⚠ ${s.d<0?'EXCEDIDO':'SALDO BAJO'} (${Math.round(a)}%)</span>`:''}
-        <span class="bk">${esc(c.bank)}</span>
+        <span class="bk">${cardTypeLabel(c)}</span>
       </div>
       <div>
         <small>${c.type=='credito'?'Crédito libre':'Disponible actual'}</small>
@@ -1010,7 +928,7 @@ const card=(c,x='',showFooter=true)=>{
         <div class="tk"><i style="width:${a}%;background:${s.low?'#dc2626':'currentColor'}"></i></div>
       </div>
       <div class="rw">
-        <span class="nm">${esc(c.name)}</span>
+        <span class="nm">${esc(c.bank||'Banco')}</span>
         <small>Límite ${fm(c.d0)}</small>
       </div>
     </div>
@@ -1024,6 +942,7 @@ const card=(c,x='',showFooter=true)=>{
 
 const bar=(g,d,c)=>`<div class="br" style="--c:${c}"><i style="width:${Math.min(100,g/Math.max(g+Math.max(d,0),1)*100)}%"></i></div><div class="lg"><span>Gastado ${fm(g)}</span><span>Disponible ${fm(d)}</span></div>`;
 
+/* Historial por fecha: tocar el icono de categoría o el movimiento abre la edición */
 const mv=(l,showCard=true)=>{
   if(!l.length)return'<div class="pn"><small>Aún no hay movimientos registrados.</small></div>';
   const sorted=l.slice().sort((x,y)=>new Date(y.date)-new Date(x.date));
@@ -1048,14 +967,14 @@ const mv=(l,showCard=true)=>{
       ${g.items.map(e=>{
         const k=cc(e.cat);
         return`<div class="mv">
-          <div class="ic">${k[1]}</div>
-          <div>
+          <button type="button" class="ic" title="Tocar para editar categoría o movimiento" onclick="editTx(${e.id})">${k[1]}</button>
+          <div class="mv-info" onclick="editTx(${e.id})">
             <span class="mv-t">${esc(e.note||e.cat)}</span>
             <small>${esc(e.cat)}${showCard?' · '+esc(cn(e.card)):''}</small>
           </div>
           <div style="display:flex;align-items:center;gap:6px">
             <b class="${e.amt<0?'pos':''}">${e.amt<0?'+':'−'}${fm(Math.abs(e.amt))}</b>
-            ${IS_ADMIN?`<button class="ib" style="width:28px;height:28px" title="Editar movimiento" onclick="editTx(${e.id})">${ic('ed',13)}</button>`:''}
+            <button type="button" class="ib" style="width:28px;height:28px" title="Editar movimiento" onclick="editTx(${e.id})">${ic('ed',13)}</button>
           </div>
         </div>`;
       }).join('')}
@@ -1063,7 +982,7 @@ const mv=(l,showCard=true)=>{
   `).join('')}</div>`;
 };
 
-const empty=`<div class="em"><p>Aún no tienes tarjetas.</p>${(S.cms.allowUserCards||IS_ADMIN)?'<button class="pb" onclick="cf()">Agregar tu primera tarjeta</button>':'<small>El administrador aún no ha habilitado tarjetas.</small>'}</div>`;
+const empty=`<div class="em"><p>Aún no tienes tarjetas.</p><button type="button" class="pb" onclick="cf()">Agregar tu primera tarjeta</button></div>`;
 
 const VW={
   h(){
@@ -1073,8 +992,7 @@ const VW={
           ap=Math.round(Math.max(0,D)/Math.max(D+G,1)*100),
           lo=S.cards.filter(c=>st(c).low),
           c=S.cards.find(x=>x.id==S.act)||S.cards[0],
-          u=unread(),
-          canAddCard=S.cms.allowUserCards||IS_ADMIN;
+          u=unread();
 
     return`
     <div class="hd">
@@ -1082,24 +1000,16 @@ const VW={
         <div class="lgo">
           ${LG_MINI()}
           <div>
-            <h1>Hola ${esc(S.cms.userName||'Valeria')}</h1>
+            <h1>Hola ${esc(S.userName||'Valeria')}</h1>
           </div>
         </div>
         <div class="top-acts">
-          <button class="ib ${IS_ADMIN?'adm-on':''}" aria-label="Panel Administrador" title="${IS_ADMIN?'Panel Admin activo':'Acceso Admin'}" onclick="adminBtn()">
-            ${ic('adm',18)}
-          </button>
-          <button class="ib bell" aria-label="Notificaciones" onclick="go('n')">
+          <button type="button" class="ib bell" aria-label="Notificaciones" onclick="go('n')">
             ${ic('bl',18)}
             ${u?`<span class="bn">${u}</span>`:''}
           </button>
         </div>
       </div>
-
-      ${S.cms.bannerText?`
-      <div style="background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:8px 12px;margin-bottom:12px;font-size:12px;display:flex;align-items:center;gap:8px">
-        <span>📢</span><span>${esc(S.cms.bannerText)}</span>
-      </div>`:''}
 
       <div class="gl">
         <div class="rw">
@@ -1126,7 +1036,7 @@ const VW={
       <span class="ai">${ic('w',18)}</span>
       <div>
         <b>Alerta de saldo bajo</b><br>
-        <small>${esc(lo[0].name)}${lo.length>1?' y '+(lo.length-1)+' más tienen':' tiene'} poco margen.</small>
+        <small>${esc(cardTitle(lo[0]))}${lo.length>1?' y '+(lo.length-1)+' más tienen':' tiene'} poco margen.</small>
       </div>
       <span style="font-size:12px;font-weight:600">Revisar</span>
     </div>`:''}
@@ -1135,9 +1045,9 @@ const VW={
       <div class="rw">
         <div>
           <h2>Mis tarjetas</h2>
-          <small>Toca "Ver más…" en la tarjeta para ver su detalle</small>
+          <small>Toca "Ver más…" para ver detalle y editar gastos</small>
         </div>
-        ${canAddCard?'<button class="nw" onclick="cf()">+ Nueva</button>':''}
+        <button type="button" class="nw" onclick="cf()">+ Nueva</button>
       </div>
     </div>
 
@@ -1146,7 +1056,7 @@ const VW={
     <div class="sec">
       <div class="rw" style="margin-bottom:10px">
         <h2>Últimos movimientos</h2>
-        <button class="lk" onclick="go('c')">Ver análisis</button>
+        <button type="button" class="lk" onclick="go('c')">Ver análisis</button>
       </div>
       ${mv(S.ex.slice().sort((x,y)=>new Date(y.date)-new Date(x.date)).slice(0,6),true)}
     </div>`;
@@ -1156,17 +1066,17 @@ const VW={
     const l=S.notes.filter(x=>x.box==BX).sort((x,y)=>new Date(y.date||y.due)-new Date(x.date||x.due)),
           u=unread();
     return`
-    <button class="bk2" onclick="go('h')">‹ Volver</button>
+    <button type="button" class="bk2" onclick="go('h')">‹ Volver</button>
     <div class="sec" style="margin-top:8px">
       <div class="rw">
         <h1>Notificaciones</h1>
-        <button class="nw" onclick="nf()">+ Nueva</button>
+        <button type="button" class="nw" onclick="nf()">+ Nueva</button>
       </div>
       <div class="tg" style="margin:14px 0 8px">
-        <button class="${BX=='in'?'on':''}" onclick="BX='in';render()">Bandeja de entrada${u?' ('+u+')':''}</button>
-        <button class="${BX=='out'?'on':''}" onclick="BX='out';render()">Bandeja de salida</button>
+        <button type="button" class="${BX=='in'?'on':''}" onclick="BX='in';render()">Bandeja de entrada${u?' ('+u+')':''}</button>
+        <button type="button" class="${BX=='out'?'on':''}" onclick="BX='out';render()">Bandeja de salida</button>
       </div>
-      ${BX=='in'&&u?'<button class="lk" style="margin:6px 0" onclick="ra()">Marcar todo como leído</button>':''}
+      ${BX=='in'&&u?'<button type="button" class="lk" style="margin:6px 0" onclick="ra()">Marcar todo como leído</button>':''}
       ${l.length?l.map(x=>`
         <div class="nt ${x.read||x.box=='out'?'rd':''}" onclick="rd(${x.id})">
           <span class="dt"></span>
@@ -1176,7 +1086,7 @@ const VW={
               <small>${fd(x.date||x.due)}</small>
             </div>
             <small>${x.box=='out'?(x.sent?'Enviada':'Programada'):x.kind}</small>
-            ${x.open?`<p>${esc(x.body||'')}</p>${(x.box=='out'||IS_ADMIN)?`<button class="lk" onclick="event.stopPropagation();dn(${x.id})">Eliminar</button>`:''}`:''}
+            ${x.open?`<p>${esc(x.body||'')}</p>${x.box=='out'?`<button type="button" class="lk" onclick="event.stopPropagation();dn(${x.id})">Eliminar</button>`:''}`:''}
           </div>
         </div>`).join(''):'<p style="text-align:center;color:var(--mu);padding:36px 0">Sin mensajes por ahora.</p>'}
     </div>`;
@@ -1189,11 +1099,10 @@ const VW={
           ex=S.ex.filter(e=>e.card==c.id),
           allCats=getCats(),
           cat=allCats.map(k=>[k,ex.filter(e=>e.cat.toLowerCase()===k[0].toLowerCase()&&e.amt>0).reduce((a,e)=>a+e.amt,0)]).filter(x=>x[1]>0),
-          mx=Math.max(...cat.map(x=>x[1]),1),
-          canEditCard=S.cms.allowUserCards||IS_ADMIN;
+          mx=Math.max(...cat.map(x=>x[1]),1);
 
     return`
-    <button class="bk2" onclick="go('h')">‹ Volver</button>
+    <button type="button" class="bk2" onclick="go('h')">‹ Volver</button>
     ${card(c,'big2',false)}
     ${s.low?`
     <div class="al" style="cursor:default">
@@ -1226,14 +1135,14 @@ const VW={
 
       <div class="rw" style="margin-bottom:10px">
         <h2>Historial por fecha</h2>
-        <small>${ex.length} mov.</small>
+        <small>Toca el ícono para editar</small>
       </div>
       ${mv(ex,false)}
     </div>
 
     <div class="row">
-      <button class="pb" onclick="ef(${c.id})">+ Registrar gasto</button>
-      ${canEditCard?`<button class="sb" onclick="cf(${c.id})">Editar tarjeta</button>`:''}
+      <button type="button" class="pb" onclick="ef(${c.id})">+ Registrar gasto</button>
+      <button type="button" class="sb" onclick="cf(${c.id})">Editar tarjeta</button>
     </div>`;
   },
 
@@ -1259,12 +1168,12 @@ const VW={
         <div class="trk" style="height:8px;margin-top:14px"><i class="fl" style="width:${p}%"></i></div>
       </div>
 
-      <h2 style="margin:22px 0 10px">Por tarjeta</h2>
+      <h2 style="margin:22px 0 10px">Por tarjeta (Crédito / Débito)</h2>
       <div class="pn">
         ${a.map((s,i)=>`
           <div class="cr">
             <div class="rw">
-              <span><span class="dot" style="background:${s.c.color}"></span>${esc(s.c.name)}</span>
+              <span><span class="dot" style="background:${s.c.color}"></span><b>${esc(s.c.bank||'Banco')}</b> · ${cardTypeLabel(s.c)}</span>
               <span style="font-weight:600">${Math.round(s.p)}%</span>
             </div>
             <div class="trk"><i class="fl" style="width:${Math.min(100,s.p)}%;animation-delay:${i*.1}s${s.low?';background:#dc2626':''}"></i></div>
@@ -1287,12 +1196,11 @@ const VW={
   },
 
   m(){
-    const canAddCard=S.cms.allowUserCards||IS_ADMIN;
     return`
     <div class="sec" style="margin-top:0;padding-top:18px">
       <div class="rw">
         <h1>Tarjetas</h1>
-        ${canAddCard?'<button class="nw" onclick="cf()">+ Nueva</button>':''}
+        <button type="button" class="nw" onclick="cf()">+ Nueva</button>
       </div>
     </div>
     ${S.cards.map(c=>card(c,'big2',true)).join('')||empty}
@@ -1302,13 +1210,9 @@ const VW={
           <b style="font-size:12.5px">Estado de sincronización</b>
           <span class="sync-pill ${window.FB_SYNC&&window.FB_SYNC.connected?'':'off'}"><i></i>${window.FB_SYNC&&window.FB_SYNC.connected?'Firebase conectado':'Modo local / sin red'}</span>
         </div>
-        <small>Tus datos se sincronizan en tiempo real con Firebase (billetera-56524) y se respaldan localmente.</small>
-        <div style="margin-top:10px;border-top:1px solid var(--ln);padding-top:8px">
-          <button class="lk" onclick="adminBtn()">${IS_ADMIN?'Abrir Panel CMS Administrador':'Acceso Administrador'}</button>
-        </div>
-        ${IS_ADMIN?`
-        <button class="dg" onclick="if(this.dataset.s){S.cards=[];S.ex=[];S.notes=[];S.ak={};save();render()}else{this.dataset.s=1;this.textContent='¿Seguro? Toca otra vez para borrar todo'}">Empezar de cero</button>
-        <button class="dg" style="color:var(--mu);padding-top:4px" onclick="rs()">Restaurar datos de ejemplo</button>`:''}
+        <small>Tus datos se respaldan automáticamente en la nube y en tu teléfono.</small>
+        <button type="button" class="dg" onclick="if(this.dataset.s){S.cards=[];S.ex=[];S.notes=[];S.ak={};save();render()}else{this.dataset.s=1;this.textContent='¿Seguro? Toca otra vez para borrar todo'}">Empezar de cero</button>
+        <button type="button" class="dg" style="color:var(--mu);padding-top:4px" onclick="rs()">Restaurar datos de ejemplo</button>
       </div>
     </div>`;
   }
@@ -1316,14 +1220,6 @@ const VW={
 
 function render(){
   sync();
-  $('#cms-bar').innerHTML=IS_ADMIN?`
-    <div class="cms-banner">
-      <div>Modo Admin: <span>${ADMIN_USER}</span></div>
-      <div style="display:flex;gap:12px">
-        <button style="color:var(--ac);font-weight:600" onclick="openCms()">Configurar CMS</button>
-        <button style="opacity:.8" onclick="logoutAdmin()">Salir</button>
-      </div>
-    </div>`:'';
   const y=$('#v').scrollTop;
   $('#v').innerHTML=VW[V]();
   $('#v').scrollTop=y;
@@ -1343,9 +1239,7 @@ function go(v,id){
 
 function rs(){
   if(rs.t){
-    const keepCms=S.cms;
     S=seed();
-    S.cms=keepCms;
     save();
     render();
     rs.t=0;
@@ -1376,7 +1270,7 @@ function cl(){
 
 function toast(m,u){
   const t=$('#tt');
-  t.innerHTML=esc(m)+(u?`<button onclick="un(${u})">Deshacer</button>`:'');
+  t.innerHTML=esc(m)+(u?`<button type="button" onclick="un(${u})">Deshacer</button>`:'');
   t.style.display='block';
   clearTimeout(t.h);
   t.h=setTimeout(()=>t.style.display='none',4000);
@@ -1388,196 +1282,9 @@ function un(id){
   $('#tt').style.display='none';
 }
 
-let CMS_TAB='general';
-
-function adminBtn(){
-  if(IS_ADMIN){
-    openCms();
-  }else{
-    openAdminLogin();
-  }
-}
-
-function openAdminLogin(){
-  sheet(`
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-      <span class="ib adm-on" style="width:34px;height:34px">${ic('adm',17)}</span>
-      <div>
-        <h2 style="font-size:17px">Acceso Administrador</h2>
-        <small>Ingresa tus credenciales para gestionar el CMS</small>
-      </div>
-    </div>
-    <label>Usuario</label>
-    <input id="adm_u" placeholder="Usuario administrador" autocomplete="username">
-    <label>Contraseña</label>
-    <input id="adm_p" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doAdminLogin()">
-    <div class="row" style="margin:18px 0 0">
-      <button class="sb" onclick="cl()">Cancelar</button>
-      <button class="pb" onclick="doAdminLogin()">Entrar al CMS</button>
-    </div>
-  `);
-  setTimeout(()=>{const u=$('#adm_u');if(u)u.focus()},100);
-}
-
-function doAdminLogin(){
-  const u=($('#adm_u').value||'').trim().toLowerCase();
-  const p=($('#adm_p').value||'').trim();
-  if(u===ADMIN_USER && p===ADMIN_PASS){
-    IS_ADMIN=true;
-    try{sessionStorage.setItem('bf_admin','1')}catch(e){}
-    toast('Bienvenido, '+ADMIN_USER);
-    render();
-    openCms();
-  }else{
-    toast('Usuario o contraseña incorrectos');
-  }
-}
-
-function logoutAdmin(){
-  IS_ADMIN=false;
-  try{sessionStorage.removeItem('bf_admin')}catch(e){}
-  cl();
-  render();
-  toast('Sesión de administrador cerrada');
-}
-
-function openCms(){
-  if(!IS_ADMIN)return openAdminLogin();
-  F.cmsDraft=Object.assign({},S.cms);
-  renderCms();
-}
-
-function renderCms(){
-  const d=F.cmsDraft;
-  let body='';
-  if(CMS_TAB==='general'){
-    body=`
-      <label>Nombre de la aplicación</label>
-      <input value="${esc(d.appName)}" oninput="F.cmsDraft.appName=this.value">
-
-      <label>Nombre del titular / saludo principal</label>
-      <input value="${esc(d.userName)}" oninput="F.cmsDraft.userName=this.value" placeholder="Ej. Valeria">
-
-      <label>Aviso o mensaje destacado en Inicio (opcional)</label>
-      <input value="${esc(d.bannerText||'')}" oninput="F.cmsDraft.bannerText=this.value" placeholder="Ej. Recuerda registrar tus gastos del día">
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div>
-          <label>Moneda</label>
-          <select onchange="F.cmsDraft.currency=this.value">
-            ${[['USD','USD ($)'],['EUR','EUR (€)'],['MXN','MXN ($)'],['GTQ','GTQ (Q)'],['CRC','CRC (₡)']].map(([k,lbl])=>`<option value="${k}" ${d.currency===k?'selected':''}>${lbl}</option>`).join('')}
-          </select>
-        </div>
-        <div>
-          <label>Alerta saldo bajo (%)</label>
-          <input type="number" min="1" max="90" value="${d.defaultThr||20}" oninput="F.cmsDraft.defaultThr=Number(this.value)||20">
-        </div>
-      </div>
-
-      <label>Color de acento principal</label>
-      <div class="sws">${PAL.map(p=>`<button class="sw ${p[1]==d.accentColor?'on':''}" style="background:${p[1]}" title="${p[0]}" onclick="F.cmsDraft.accentColor='${p[1]}';renderCms()"></button>`).join('')}</div>
-
-      <div style="margin-top:14px">
-        <div class="sw-row">
-          <div>
-            <b style="font-size:13px">Escáner simulado de tickets</b><br>
-            <small>Mostrar botón de escanear al registrar gasto</small>
-          </div>
-          <button class="tgl ${d.allowScan?'on':''}" onclick="F.cmsDraft.allowScan=!F.cmsDraft.allowScan;renderCms()"></button>
-        </div>
-        <div class="sw-row">
-          <div>
-            <b style="font-size:13px">Permitir editar/crear tarjetas</b><br>
-            <small>Si se apaga, solo el Admin puede crear tarjetas</small>
-          </div>
-          <button class="tgl ${d.allowUserCards?'on':''}" onclick="F.cmsDraft.allowUserCards=!F.cmsDraft.allowUserCards;renderCms()"></button>
-        </div>
-      </div>
-
-      <div class="row" style="margin:18px 0 0">
-        <button class="sb" onclick="cl()">Cerrar</button>
-        <button class="pb" onclick="saveCmsSettings()">Guardar cambios</button>
-      </div>
-    `;
-  }else if(CMS_TAB==='data'){
-    body=`
-      <div class="rw" style="margin:12px 0 8px">
-        <b style="font-size:13px">Tarjetas activas (${S.cards.length})</b>
-        <button class="nw" onclick="cf()">+ Tarjeta</button>
-      </div>
-      ${S.cards.map(c=>`
-        <div class="cat-row">
-          <div>
-            <b>${esc(c.name)}</b><br>
-            <small>${esc(c.bank)} · Límite ${fm(c.d0)}</small>
-          </div>
-          <button class="lk" onclick="cf(${c.id})">Editar</button>
-        </div>`).join('')||'<small>No hay tarjetas registradas.</small>'}
-
-      <div class="rw" style="margin:16px 0 8px">
-        <b style="font-size:13px">Últimos movimientos (${S.ex.length})</b>
-        <button class="lk" onclick="ef()">+ Movimiento</button>
-      </div>
-      ${S.ex.slice().sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,10).map(e=>`
-        <div class="cat-row">
-          <div style="min-width:0;flex:1;padding-right:8px">
-            <div style="font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(e.note||e.cat)}</div>
-            <small>${esc(e.cat)} · ${fd(e.date)}</small>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <b>${e.amt<0?'+':'−'}${fm(Math.abs(e.amt))}</b>
-            <button class="lk" onclick="editTx(${e.id})">Editar</button>
-          </div>
-        </div>`).join('')||'<small>No hay movimientos.</small>'}
-      <div class="row" style="margin:16px 0 0">
-        <button class="sb" onclick="cl()">Listo</button>
-      </div>
-    `;
-  }else if(CMS_TAB==='firebase'){
-    const isConn=window.FB_SYNC&&window.FB_SYNC.connected;
-    body=`
-      <div class="pn" style="margin-top:12px">
-        <div class="rw" style="margin-bottom:8px">
-          <b>Proyecto Firebase</b>
-          <span class="sync-pill ${isConn?'':'off'}"><i></i>${isConn?'Conectado':'Sincronizando'}</span>
-        </div>
-        <small style="display:block;margin-bottom:6px"><b>Project ID:</b> billetera-56524</small>
-        <small style="display:block;margin-bottom:6px"><b>Colección:</b> billfold_cms / app_state</small>
-        <small style="display:block">Cualquier cambio guardado aquí se refleja en tiempo real en todos los dispositivos conectados.</small>
-      </div>
-      <div class="row" style="margin:14px 0 0">
-        <button class="sb" onclick="save(true);toast('Estado enviado a Firebase')">Forzar subida</button>
-        <button class="pb" onclick="logoutAdmin()">Cerrar sesión Admin</button>
-      </div>
-    `;
-  }
-
-  sheet(`
-    <div class="rw" style="margin-bottom:10px">
-      <div>
-        <h2 style="font-size:17px">CMS Billfold Digital</h2>
-        <small>Panel de configuración · Admin: ${ADMIN_USER}</small>
-      </div>
-      <button class="lk" style="color:var(--bad)" onclick="logoutAdmin()">Salir</button>
-    </div>
-    <div class="tg">
-      <button class="${CMS_TAB==='general'?'on':''}" onclick="CMS_TAB='general';renderCms()">Ajustes</button>
-      <button class="${CMS_TAB==='data'?'on':''}" onclick="CMS_TAB='data';renderCms()">Datos</button>
-      <button class="${CMS_TAB==='firebase'?'on':''}" onclick="CMS_TAB='firebase';renderCms()">Firebase</button>
-    </div>
-    ${body}
-  `);
-}
-
-function saveCmsSettings(){
-  S.cms=Object.assign({},F.cmsDraft);
-  applyTheme();
-  save();
-  cl();
-  render();
-  toast('Configuración CMS guardada');
-}
-
+/* =========================================================
+   EDICIÓN DE MOVIMIENTOS (Al tocar el ícono o movimiento)
+   ========================================================= */
 function editTx(id){
   const tx=S.ex.find(x=>x.id==id);
   if(!tx)return;
@@ -1598,14 +1305,14 @@ function editTxForm(){
   sheet(`
     <h2 style="font-size:17px;margin-bottom:12px">Editar movimiento</h2>
     <div class="tg">
-      <button class="${F.neg?'on':''}" onclick="F.neg=1;editTxForm()">Gasto</button>
-      <button class="${F.neg?'':'on'}" onclick="F.neg=0;editTxForm()">Abono o reembolso</button>
+      <button type="button" class="${F.neg?'on':''}" onclick="F.neg=1;editTxForm()">Gasto</button>
+      <button type="button" class="${F.neg?'':'on'}" onclick="F.neg=0;editTxForm()">Ingresos</button>
     </div>
-    <label>Tarjeta</label>
-    <div class="chs">${S.cards.map(c=>`<button class="chip ${F.card==c.id?'on':''}" onclick="F.card=${c.id};editTxForm()">${esc(c.name)}</button>`).join('')}</div>
+    <label>Tarjeta (Banco)</label>
+    <div class="chs">${S.cards.map(c=>`<button type="button" class="chip ${F.card==c.id?'on':''}" onclick="F.card=${c.id};editTxForm()">${esc(cardTitle(c))}</button>`).join('')}</div>
     <label>Categoría</label>
-    <div class="chs">${allCats.map(([n,i])=>`<button class="chip ${F.cat===n?'on':''}" onclick="F.cat=${JSON.stringify(n)};editTxForm()">${i} ${esc(n)}</button>`).join('')}</div>
-    <label>Monto</label>
+    <div class="chs">${allCats.map(([n,i],idx)=>`<button type="button" class="chip ${F.cat===n?'on':''}" onclick="F.cat=getCats()[${idx}][0];editTxForm()">${i} ${esc(n)}</button>`).join('')}</div>
+    <label>Monto (USD)</label>
     <input class="amt" inputmode="decimal" value="${esc(F.amt)}" oninput="F.amt=this.value">
     <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:10px;margin-top:4px">
       <div>
@@ -1618,10 +1325,10 @@ function editTxForm(){
       </div>
     </div>
     <div class="row" style="margin:18px 0 0">
-      <button class="sb" onclick="cl()">Cancelar</button>
-      <button class="pb" onclick="saveEditTx()">Actualizar</button>
+      <button type="button" class="sb" onclick="cl()">Cancelar</button>
+      <button type="button" class="pb" onclick="saveEditTx()">Guardar cambios</button>
     </div>
-    <button class="dg" onclick="delTx(${F.editId})">Eliminar movimiento</button>
+    <button type="button" class="dg" onclick="delTx(${F.editId})">Eliminar movimiento</button>
   `);
 }
 
@@ -1653,6 +1360,9 @@ function delTx(id){
   toast('Movimiento eliminado');
 }
 
+/* =========================================================
+   REGISTRO DE MOVIMIENTOS Y CATEGORÍAS PERSONALIZADAS
+   ========================================================= */
 function ef(id){
   if(!S.cards.length){
     go('m');
@@ -1675,27 +1385,27 @@ function efr(){
     ${F.sc?'<div class="scn"><i></i>Escaneando ticket…</div>':''}
     <h2 style="font-size:17px;margin-bottom:12px">Registrar movimiento</h2>
     <div class="tg">
-      <button class="${F.neg?'on':''}" onclick="F.neg=1;efr()">Gasto</button>
-      <button class="${F.neg?'':'on'}" onclick="F.neg=0;efr()">Abono o reembolso</button>
+      <button type="button" class="${F.neg?'on':''}" onclick="F.neg=1;efr()">Gasto</button>
+      <button type="button" class="${F.neg?'':'on'}" onclick="F.neg=0;efr()">Ingresos</button>
     </div>
 
-    <label>Tarjeta</label>
-    <div class="chs">${S.cards.map(c=>`<button class="chip ${F.card==c.id?'on':''}" onclick="F.card=${c.id};efr()">${esc(c.name)}</button>`).join('')}</div>
+    <label>Tarjeta (Banco)</label>
+    <div class="chs">${S.cards.map(c=>`<button type="button" class="chip ${F.card==c.id?'on':''}" onclick="F.card=${c.id};efr()">${esc(cardTitle(c))}</button>`).join('')}</div>
 
     <div class="rw" style="margin-top:13px;margin-bottom:6px">
       <label style="margin:0">Categoría</label>
-      <button class="lk" onclick="catMgr()">Gestionar (${S.customCats.length})</button>
+      <button type="button" class="lk" onclick="catMgr()">Gestionar (${S.customCats.length})</button>
     </div>
     <div class="chs">
-      ${allCats.map(([n,i])=>`<button class="chip ${F.cat===n?'on':''}" onclick="F.cat=${JSON.stringify(n)};efr()">${i} ${esc(n)}</button>`).join('')}
-      <button class="chip chip-add" onclick="newCatForm()">+ Categoría</button>
+      ${allCats.map(([n,i],idx)=>`<button type="button" class="chip ${F.cat===n?'on':''}" onclick="F.cat=getCats()[${idx}][0];efr()">${i} ${esc(n)}</button>`).join('')}
+      <button type="button" class="chip chip-add" onclick="newCatForm()">+ Categoría</button>
     </div>
 
-    <label>Monto (${esc(S.cms.currency||'USD')})</label>
+    <label>Monto (USD)</label>
     <input class="amt" inputmode="decimal" placeholder="0.00" value="${esc(F.amt)}" oninput="F.amt=this.value">
     <div class="chs" style="margin-top:8px">
-      ${[5,10,20,50].map(v=>`<button class="chip" onclick="F.amt='${v}';efr()">$${v}</button>`).join('')}
-      ${S.cms.allowScan?`<button class="chip" onclick="sn()">${ic('s',15)} Escanear ticket</button>`:''}
+      ${[5,10,20,50].map(v=>`<button type="button" class="chip" onclick="F.amt='${v}';efr()">$${v}</button>`).join('')}
+      <button type="button" class="chip" onclick="sn()">${ic('s',15)} Escanear ticket</button>
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:10px;margin-top:4px">
@@ -1710,8 +1420,8 @@ function efr(){
     </div>
 
     <div class="row" style="margin:18px 0 0">
-      <button class="sb" onclick="cl()">Cancelar</button>
-      <button class="pb" onclick="sx()">Confirmar</button>
+      <button type="button" class="sb" onclick="cl()">Cancelar</button>
+      <button type="button" class="pb" onclick="sx()">Confirmar</button>
     </div>
   `);
 }
@@ -1737,12 +1447,12 @@ function newCatForm(){
 
     <label>Sugerencias rápidas de emoji (o usa tu teclado)</label>
     <div class="chs">
-      ${quickEmojis.map(em=>`<button class="chip ${F.ncEmoji===em?'on':''}" style="font-size:16px;padding:6px 10px" onclick="F.ncEmoji='${em}';$('#ce_in').value='${em}'">${em}</button>`).join('')}
+      ${quickEmojis.map(em=>`<button type="button" class="chip ${F.ncEmoji===em?'on':''}" style="font-size:16px;padding:6px 10px" onclick="F.ncEmoji='${em}';$('#ce_in').value='${em}'">${em}</button>`).join('')}
     </div>
 
     <div class="row" style="margin:18px 0 0">
-      <button class="sb" onclick="efr()">Volver</button>
-      <button class="pb" onclick="saveNewCat()">Guardar categoría</button>
+      <button type="button" class="sb" onclick="efr()">Volver</button>
+      <button type="button" class="pb" onclick="saveNewCat()">Guardar categoría</button>
     </div>
   `);
   setTimeout(()=>{const inp=$('#cn_in');if(inp)inp.focus()},120);
@@ -1773,14 +1483,14 @@ function catMgr(){
         ? S.customCats.map((c,i)=>`
           <div class="cat-row">
             <span><b style="font-size:16px;margin-right:6px">${c[1]}</b> ${esc(c[0])}</span>
-            <button class="lk" style="color:var(--bad)" onclick="delCat(${i})">Eliminar</button>
+            <button type="button" class="lk" style="color:var(--bad)" onclick="delCat(${i})">Eliminar</button>
           </div>`).join('')
         : '<p style="text-align:center;color:var(--mu);padding:22px 0">Aún no has creado categorías propias.</p>'
       }
     </div>
     <div class="row" style="margin:16px 0 0">
-      <button class="sb" onclick="efr()">Volver</button>
-      <button class="pb" onclick="newCatForm()">+ Crear categoría</button>
+      <button type="button" class="sb" onclick="efr()">Volver</button>
+      <button type="button" class="pb" onclick="newCatForm()">+ Crear categoría</button>
     </div>
   `);
 }
@@ -1831,14 +1541,16 @@ function sx(){
   cl();
   render();
   const c=S.cards.find(x=>x.id==F.card);
-  toast(st(c).low?'⚠ Balance bajo en '+c.name:'Movimiento registrado',e.id);
+  toast(st(c).low?'⚠ Balance bajo en '+cardTitle(c):'Movimiento registrado',e.id);
 }
 
+/* =========================================================
+   FORMULARIO DE TARJETA (Banco + Tipo Crédito/Débito)
+   ========================================================= */
 function pvu(){
   const g=i=>$('#'+i).value;
   $('#pv').innerHTML=card({
     id:F.id,
-    name:g('fn')||'Nombre de la tarjeta',
     bank:g('fb')||'Banco',
     type:g('ft'),
     color:F.color,
@@ -1857,38 +1569,35 @@ function cf(id){
   sheet(`
     <h2 style="font-size:17px;margin-bottom:12px">${c.id?'Editar tarjeta':'Nueva tarjeta'}</h2>
     <div id="pv" style="margin:0 -2px"></div>
-    <label>Nombre</label>
-    <input id="fn" oninput="pvu()" value="${esc(c.name||'')}" placeholder="Ej. Visa Oro Compras">
     <label>Banco</label>
-    <input id="fb" oninput="pvu()" value="${esc(c.bank||'')}" placeholder="Ej. Banco Agrícola">
-    <label>Tipo</label>
+    <input id="fb" oninput="pvu()" value="${esc(c.bank||'')}" placeholder="Ej. Banco Agrícola, BAC Credomatic">
+    <label>Tipo de tarjeta</label>
     <select id="ft" onchange="pvu()">
-      <option value="debito" ${c.type=='debito'?'selected':''}>Débito o prepago (saldo)</option>
+      <option value="debito" ${c.type=='debito'?'selected':''}>Débito (saldo disponible)</option>
       <option value="credito" ${c.type=='credito'?'selected':''}>Crédito (límite disponible)</option>
     </select>
-    <label>Saldo o límite disponible (${esc(S.cms.currency||'USD')})</label>
+    <label>Saldo o límite disponible (USD)</label>
     <input id="fd" oninput="pvu()" inputmode="decimal" value="${c.d0??''}" placeholder="0.00">
     <label>Avisar cuando quede el (%)</label>
-    <input id="fp" oninput="pvu()" inputmode="numeric" value="${c.thr??(S.cms.defaultThr||20)}">
+    <input id="fp" oninput="pvu()" inputmode="numeric" value="${c.thr??20}">
     <label>Color</label>
-    <div class="sws">${PAL.map(p=>`<button class="sw ${p[1]==F.color?'on':''}" style="background:${p[1]}" aria-label="${p[0]}" title="${p[0]}" onclick="pc(this,'${p[1]}')"></button>`).join('')}</div>
+    <div class="sws">${PAL.map(p=>`<button type="button" class="sw ${p[1]==F.color?'on':''}" style="background:${p[1]}" aria-label="${p[0]}" title="${p[0]}" onclick="pc(this,'${p[1]}')"></button>`).join('')}</div>
     <div class="row" style="margin:16px 0 0">
-      <button class="sb" onclick="cl()">Cancelar</button>
-      <button class="pb" onclick="sc2()">Guardar tarjeta</button>
+      <button type="button" class="sb" onclick="cl()">Cancelar</button>
+      <button type="button" class="pb" onclick="sc2()">Guardar tarjeta</button>
     </div>
-    ${c.id?`<button class="dg" onclick="if(this.dataset.s){dd(${c.id})}else{this.dataset.s=1;this.textContent='¿Seguro? Toca otra vez para eliminar'}">Eliminar tarjeta</button>`:''}
+    ${c.id?`<button type="button" class="dg" onclick="if(this.dataset.s){dd(${c.id})}else{this.dataset.s=1;this.textContent='¿Seguro? Toca otra vez para eliminar'}">Eliminar tarjeta</button>`:''}
   `);
   pvu();
 }
 function sc2(){
-  const n=$('#fn').value.trim(),
+  const b=$('#fb').value.trim(),
         d=parseFloat($('#fd').value.replace(',','.')),
-        p=parseFloat($('#fp').value)||(S.cms.defaultThr||20);
-  if(!n||!(d>=0))return toast('Escribe un nombre y un saldo válido');
+        p=parseFloat($('#fp').value)||20;
+  if(!b||!(d>=0))return toast('Escribe el nombre del banco y un saldo válido');
   const o={
     id:F.id||Date.now(),
-    name:n,
-    bank:$('#fb').value.trim()||'Banco',
+    bank:b,
     type:$('#ft').value,
     color:F.color,
     d0:d,
@@ -1929,7 +1638,7 @@ render();
       </div>
     </div>
     <div style="text-align:center">
-      <div class="sp-title">${esc(S.cms.appName||'Billfold Digital')}</div>
+      <div class="sp-title">Billfold Digital</div>
       <small id="sl" style="display:block;margin-top:4px">Preparando tu billetera…</small>
     </div>
     <div class="ld"><i id="sb"></i></div>
@@ -1939,7 +1648,7 @@ render();
   const iv=setInterval(()=>{
     p=Math.min(100,p+7+Math.random()*12);
     $('#sb').style.width=p+'%';
-    $('#sl').textContent=p<42?'Cargando tus tarjetas…':p<82?'Organizando saldos y alertas…':'Listo, '+(S.cms.userName||'Valeria');
+    $('#sl').textContent=p<42?'Cargando tus tarjetas…':p<82?'Organizando saldos y alertas…':'Listo, '+(S.userName||'Valeria');
     if(p>=100){
       clearInterval(iv);
       setTimeout(()=>{
