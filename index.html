@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Billfold Digital</title>
 <link rel="apple-touch-icon" href="aaa.jfif?v=4">
 <link rel="icon" href="aaa.jfif?v=4">
@@ -23,23 +23,31 @@
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
-html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{
+  height:100%;
+  width:100%;
+  overflow-x:hidden;
+  touch-action:manipulation;
+  -webkit-text-size-adjust:100%;
+  scroll-padding-top:env(safe-area-inset-top,0px);
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{
   margin:0;
-  height:100%;
   background:var(--bg);
   color:var(--tx);
   font:400 13.5px/1.45 "Inter",system-ui,-apple-system,sans-serif;
   -webkit-font-smoothing:antialiased;
 }
-button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0;touch-action:manipulation}
 button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--tx);outline-offset:2px}
 
 .ph{
   position:relative;
-  max-width:420px;
+  width:100%;
+  max-width:430px;
   height:100%;
+  height:100dvh;
   margin:0 auto;
   display:flex;
   flex-direction:column;
@@ -56,7 +64,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
   }
 }
 
-#v{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:28px}
+#v{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding-bottom:28px}
 #v::-webkit-scrollbar{display:none}
 
 h1{font-size:17px;font-weight:600;margin:0;letter-spacing:-.01em}
@@ -297,13 +305,14 @@ small{font-size:11.5px;color:var(--mu);font-weight:400}
 .trk{height:6px;border-radius:99px;background:var(--ln);overflow:hidden;margin:8px 0 6px}
 .trk i{display:block;height:100%;border-radius:99px;background:var(--tx)}
 
-/* Navegación inferior de 4 pestañas con Registrar integrado */
+/* Navegación inferior con botón central de acción rápido y accesible */
 nav{
   display:grid;
   grid-template-columns:repeat(4,1fr);
+  align-items:center;
   background:var(--sf);
   border-top:1px solid var(--ln);
-  padding:7px 6px calc(7px + env(safe-area-inset-bottom,0px));
+  padding:6px 6px calc(8px + env(safe-area-inset-bottom,0px));
 }
 nav button{
   font-size:11px;
@@ -312,13 +321,30 @@ nav button{
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content:center;
   gap:3px;
 }
-nav button span{padding:4px 14px;border-radius:99px;display:grid;transition:background .2s}
+nav button span{padding:4px 12px;border-radius:99px;display:grid;place-items:center;transition:background .2s}
 nav .on{color:var(--tx);font-weight:600}
 nav .on span{background:var(--ac);color:#1f2124}
-nav .reg-btn span{background:var(--tx);color:#fff}
-nav .reg-btn{color:var(--tx);font-weight:600}
+
+/* Botón Registrar mejorado: píldora elevada con icono claro */
+nav .reg-btn{
+  color:var(--tx);
+  font-weight:700;
+  gap:2px;
+}
+nav .reg-btn span{
+  background:var(--ac);
+  color:#1f2124;
+  width:46px;
+  height:32px;
+  padding:0;
+  border-radius:14px;
+  box-shadow:0 4px 12px rgba(253,218,36,.48);
+  border:1.5px solid rgba(31,33,36,.12);
+}
+nav .reg-btn:active span{transform:scale(.93)}
 
 .sh{position:absolute;inset:0;background:rgba(15,17,21,.48);display:none;align-items:flex-end;z-index:10;backdrop-filter:blur(2px)}
 .sh.o{display:flex}
@@ -327,11 +353,14 @@ nav .reg-btn{color:var(--tx);font-weight:600}
   background:var(--sf);
   width:100%;
   border-radius:26px 26px 0 0;
-  padding:18px 20px calc(20px + env(safe-area-inset-bottom,0px));
+  padding:18px 20px calc(22px + env(safe-area-inset-bottom,0px));
   max-height:92%;
   overflow-y:auto;
+  overflow-x:hidden;
 }
 label{display:block;font-size:11.5px;font-weight:500;color:var(--mu);margin:13px 0 6px}
+
+/* Font-size 16px en inputs y selects evita que iOS/Android hagan zoom automático al tocar */
 input,select{
   width:100%;
   padding:11px 12px;
@@ -340,6 +369,7 @@ input,select{
   background:var(--bg);
   color:var(--tx);
   font:inherit;
+  font-size:16px;
 }
 .amt{font-size:28px;font-weight:600;text-align:center;font-variant-numeric:tabular-nums}
 .chs{display:flex;flex-wrap:wrap;gap:7px}
@@ -369,32 +399,29 @@ input,select{
 .tg{display:flex;background:var(--bg);border-radius:12px;padding:3px;border:1px solid var(--ln)}
 .tg button{flex:1;padding:8px;border-radius:9px;font-size:12.5px;font-weight:500;color:var(--mu)}
 .tg .on{background:var(--sf);color:var(--tx);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.sws{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
-.sw{aspect-ratio:1;border-radius:50%;border:2.5px solid transparent}
-.sw.on{border-color:var(--tx);transform:scale(1.08)}
 
-.scn{
-  position:absolute;
-  inset:0;
-  background:rgba(15,17,21,.84);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-weight:500;
-  border-radius:26px 26px 0 0;
-  overflow:hidden;
-  z-index:5;
+/* Paleta de 10 colores sofisticados en 5x2 */
+.sws{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:4px 0}
+.sw{
+  width:100%;
+  max-width:44px;
+  aspect-ratio:1;
+  margin:0 auto;
+  border-radius:50%;
+  border:2px solid rgba(0,0,0,.14);
+  transition:transform .15s,box-shadow .15s;
 }
-.scn i{
-  position:absolute;
-  left:10%;
-  right:10%;
-  height:2px;
-  background:var(--ac);
-  box-shadow:0 0 14px var(--ac);
-  animation:sn 1s ease-in-out infinite;
+.sw.on{
+  border:2.5px solid var(--tx);
+  box-shadow:0 0 0 2px #fff,0 0 0 4px var(--tx);
+  transform:scale(1.06);
 }
-@keyframes sn{0%,100%{top:15%}50%{top:80%}}
+.sw-name{
+  display:inline-block;
+  font-weight:600;
+  color:var(--tx);
+  margin-left:4px;
+}
 
 .em{text-align:center;padding:30px 20px}
 .em button{margin-top:12px;padding:12px 20px}
@@ -545,6 +572,17 @@ input,select{
 .sync-pill i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block}
 .sync-pill.off i{background:#f59e0b}
 
+.hint-box{
+  background:var(--bg);
+  border:1px solid var(--ln);
+  border-radius:12px;
+  padding:9px 12px;
+  margin-top:6px;
+  font-size:11.5px;
+  color:var(--mu);
+  line-height:1.4;
+}
+
 @media(prefers-reduced-motion:no-preference){
   .bd{animation:pl 1.6s infinite ease-in-out}
   @keyframes pl{50%{transform:scale(1.05)}}
@@ -559,10 +597,10 @@ input,select{
 <div class="ph">
   <div id="v"></div>
   <nav>
-    <button data-v="h" onclick="go('h')"><span id="n1"></span>Inicio</button>
-    <button data-v="r" class="reg-btn" onclick="ef()"><span id="n4"></span>Registrar</button>
-    <button data-v="c" onclick="go('c')"><span id="n2"></span>Gráficos</button>
-    <button data-v="m" onclick="go('m')"><span id="n3"></span>Tarjetas</button>
+    <button type="button" data-v="h" onclick="go('h')"><span id="n1"></span>Inicio</button>
+    <button type="button" data-v="r" class="reg-btn" onclick="ef()"><span id="n4"></span>Registrar</button>
+    <button type="button" data-v="c" onclick="go('c')"><span id="n2"></span>Gráficos</button>
+    <button type="button" data-v="m" onclick="go('m')"><span id="n3"></span>Tarjetas</button>
   </nav>
   <div class="sh" id="sh" onclick="if(event.target===this)cl()"><div class="sc" id="sc"></div></div>
   <div id="tt"></div>
@@ -632,14 +670,13 @@ const IC={
   h:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>',
   c:'<path d="M5 20V11M12 20V4M19 20v-8"/>',
   m:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/>',
-  r:'<rect x="4" y="3" width="16" height="18" rx="3"/><path d="M9 8h6M9 12h6M12 15v4M10 17h4"/>',
+  r:'<path d="M12 5v14M5 12h14"/>',
   w:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.1"/>',
-  s:'<path d="M4 8V5h3M20 8V5h-3M4 16v3h3M20 16v3h-3M4 12h16"/>',
   bl:'<path d="M6 9a6 6 0 0112 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2 2 0 004 0"/>',
   ch:'<path d="M9 18l6-6-6-6"/>',
   ed:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>'
 };
-const ic=(n,s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
+const ic=(n,s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
 
 const COIN_FRONT=(size=104,uid='cf')=>`
 <svg width="${size}" height="${size}" viewBox="0 0 120 120" fill="none">
@@ -681,7 +718,28 @@ const nid=()=>Date.now()+Math.floor(Math.random()*1e6);
 let BX='in';
 const unread=()=>S.notes.filter(n=>n.box=='in'&&!n.read).length;
 
-/* Etiqueta limpia de la tarjeta: Banco + Tipo */
+/* Bancos predefinidos de El Salvador */
+const BANKS=[
+  'Bancoagrícola',
+  'Banco Cuscatlán',
+  'BAC Credomatic',
+  'Davivienda El Salvador'
+];
+
+/* Paleta de 10 colores exactos solicitados */
+const PAL=[
+  ['Blanco hueso','#F5F2EB'],
+  ['Amarillo manteca','#F3E59A'],
+  ['Verde salvia','#9CAF88'],
+  ['Azul medianoche','#192841'],
+  ['Borgoña o vino','#6D1A36'],
+  ['Terracota','#C86D51'],
+  ['Champán','#E6D2B5'],
+  ['Gris pizarra','#4A5568'],
+  ['Oro rosa','#D9A79C'],
+  ['Negro obsidiana','#141619']
+];
+
 const cardTypeLabel=c=>c.type==='credito'?'Crédito':'Débito';
 const cardTitle=c=>`${c.bank||'Banco'} · ${cardTypeLabel(c)}`;
 
@@ -748,7 +806,7 @@ function dn(id){
   render();
 }
 function nf(){
-  F={k:0,t:'',m:'',dt:new Date().toISOString().slice(0,10)};
+  F={k:0,t:'',m:'',dt:''};
   nfr();
 }
 function nfr(){
@@ -757,11 +815,11 @@ function nfr(){
     <label>Tipo</label>
     <div class="chs">${KINDS.map((k,i)=>`<button type="button" class="chip ${F.k==i?'on':''}" onclick="F.k=${i};nfr()">${k[1]} ${k[0]}</button>`).join('')}</div>
     <label>Título (opcional)</label>
-    <input placeholder="Ej. Pagar tarjeta Visa" value="${esc(F.t)}" oninput="F.t=this.value">
+    <input placeholder="Ej. Pagar tarjeta" value="${esc(F.t)}" oninput="F.t=this.value">
     <label>Monto (opcional)</label>
     <input inputmode="decimal" placeholder="0.00" value="${esc(F.m)}" oninput="F.m=this.value">
-    <label>Fecha del aviso</label>
-    <input type="date" value="${F.dt}" oninput="F.dt=this.value">
+    <label>Fecha del aviso *</label>
+    <input type="date" value="${esc(F.dt)}" oninput="F.dt=this.value">
     <div class="row" style="margin:16px 0 0">
       <button type="button" class="sb" onclick="cl()">Cancelar</button>
       <button type="button" class="pb" onclick="nsv()">Programar</button>
@@ -769,6 +827,7 @@ function nfr(){
   `);
 }
 function nsv(){
+  if(!F.dt)return toast('Selecciona la fecha del aviso');
   const k=KINDS[F.k],m=parseFloat(String(F.m).replace(',','.'));
   S.notes.push({
     id:nid(),
@@ -777,7 +836,7 @@ function nsv(){
     ic:k[1],
     title:(F.t||'').trim()||k[0],
     body:(m>0?'Monto: '+fm(m)+'. ':'')+'Recordatorio programado por ti.',
-    due:new Date((F.dt||new Date().toISOString().slice(0,10))+'T08:00').toISOString(),
+    due:new Date(F.dt+'T08:00').toISOString(),
     sent:0
   });
   BX='out';
@@ -789,7 +848,7 @@ function nsv(){
 }
 
 $('#n1').innerHTML=ic('h',20);
-$('#n4').innerHTML=ic('r',20);
+$('#n4').innerHTML=ic('r',22);
 $('#n2').innerHTML=ic('c',20);
 $('#n3').innerHTML=ic('m',20);
 
@@ -801,17 +860,6 @@ const fm=n=>{
   }
 };
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-const PAL=[
-  ['Amarillo','#fdda24'],
-  ['Esmeralda','#00c389'],
-  ['Azul eléctrico','#00a3e0'],
-  ['Magenta','#e31c79'],
-  ['Violeta','#7c3aed'],
-  ['Coral','#ff5a5f'],
-  ['Naranja','#ff7a1a'],
-  ['Carbón','#2c2a29']
-];
 
 const DEFAULT_CATS=[
   ['Comida','🍔','#ff5a5f'],
@@ -828,8 +876,9 @@ const getCats=()=>[...DEFAULT_CATS,...(S.customCats||[])];
 const cc=n=>getCats().find(c=>c[0].toLowerCase()===String(n).toLowerCase())||DEFAULT_CATS[7];
 
 const tc=h=>{
-  const n=parseInt(h.slice(1),16);
-  return(((n>>16)*299+((n>>8)&255)*587+(n&255)*114)/1000)>150?'#18191b':'#ffffff';
+  const clean=(h||'#141619').replace('#','');
+  const n=parseInt(clean.length===6?clean:'141619',16);
+  return(((n>>16)*299+((n>>8)&255)*587+(n&255)*114)/1000)>155?'#18191b':'#ffffff';
 };
 
 const dy=k=>new Date(Date.now()-864e5*k).toISOString();
@@ -837,9 +886,9 @@ const dy=k=>new Date(Date.now()-864e5*k).toISOString();
 const seed=()=>({
   userName:'Valeria',
   cards:[
-    {id:1,bank:'Banco Agrícola',type:'credito',color:'#fdda24',d0:1200,thr:20},
-    {id:2,bank:'BAC Credomatic',type:'debito',color:'#00c389',d0:850,thr:20},
-    {id:3,bank:'Banco Cuscatlán',type:'credito',color:'#e31c79',d0:400,thr:20}
+    {id:1,bank:'Bancoagrícola',type:'credito',color:'#192841',d0:1200,thr:20},
+    {id:2,bank:'BAC Credomatic',type:'debito',color:'#9CAF88',d0:850,thr:20},
+    {id:3,bank:'Banco Cuscatlán',type:'credito',color:'#6D1A36',d0:400,thr:20}
   ],
   ex:[
     {id:1,card:1,cat:'Súper',amt:210.5,note:'Super Selectos quincena',date:dy(4)},
@@ -871,7 +920,7 @@ window.applyRemoteState=(remote)=>{
   S=Object.assign(seed(),remote);
   S.customCats=remote.customCats||[];
   try{localStorage.setItem('radar',JSON.stringify(S))}catch(e){}
-  render();
+  if(!$('#sh').classList.contains('o')) render();
 };
 
 const st=c=>{
@@ -902,17 +951,16 @@ function dateLabel(iso){
 
 let V='h',ID=null,F={};
 
-/* Tarjeta: Banco como identificador principal + tipo Crédito/Débito */
 const card=(c,x='',showFooter=true)=>{
   const s=st(c),
         t=tc(c.color),
         a=c.d0>0?Math.max(0,Math.min(100,s.d/c.d0*100)):0,
         sub=t=='#ffffff'?'rgba(255,255,255,.78)':'rgba(24,25,27,.68)',
-        bdl=t=='#ffffff'?'rgba(255,255,255,.16)':'rgba(24,25,27,.1)',
-        ftb=t=='#ffffff'?'rgba(0,0,0,.14)':'rgba(255,255,255,.22)';
+        bdl=t=='#ffffff'?'rgba(255,255,255,.16)':'rgba(24,25,27,.12)',
+        ftb=t=='#ffffff'?'rgba(0,0,0,.16)':'rgba(0,0,0,.05)';
 
   return`
-  <div class="cd ${x}${s.low?' lo':''}" style="background:${c.color};color:${t};--s:${sub};--bdl:${bdl};--ftb:${ftb}"${c.id&&x.indexOf('nc')<0?` onclick="go('d',${c.id})"`:''}>
+  <div class="cd ${x}${s.low?' lo':''}" style="background:${c.color};color:${t};--s:${sub};--bdl:${bdl};--ftb:${ftb};border:1px solid rgba(0,0,0,.08)"${c.id&&x.indexOf('nc')<0?` onclick="go('d',${c.id})"`:''}>
     <div class="cd-body">
       <div class="tr">
         <span class="chp"></span>
@@ -942,7 +990,6 @@ const card=(c,x='',showFooter=true)=>{
 
 const bar=(g,d,c)=>`<div class="br" style="--c:${c}"><i style="width:${Math.min(100,g/Math.max(g+Math.max(d,0),1)*100)}%"></i></div><div class="lg"><span>Gastado ${fm(g)}</span><span>Disponible ${fm(d)}</span></div>`;
 
-/* Historial por fecha: tocar el icono de categoría o el movimiento abre la edición */
 const mv=(l,showCard=true)=>{
   if(!l.length)return'<div class="pn"><small>Aún no hay movimientos registrados.</small></div>';
   const sorted=l.slice().sort((x,y)=>new Date(y.date)-new Date(x.date));
@@ -1173,7 +1220,7 @@ const VW={
         ${a.map((s,i)=>`
           <div class="cr">
             <div class="rw">
-              <span><span class="dot" style="background:${s.c.color}"></span><b>${esc(s.c.bank||'Banco')}</b> · ${cardTypeLabel(s.c)}</span>
+              <span><span class="dot" style="background:${s.c.color};border:1px solid rgba(0,0,0,.15)"></span><b>${esc(s.c.bank||'Banco')}</b> · ${cardTypeLabel(s.c)}</span>
               <span style="font-weight:600">${Math.round(s.p)}%</span>
             </div>
             <div class="trk"><i class="fl" style="width:${Math.min(100,s.p)}%;animation-delay:${i*.1}s${s.low?';background:#dc2626':''}"></i></div>
@@ -1283,7 +1330,7 @@ function un(id){
 }
 
 /* =========================================================
-   EDICIÓN DE MOVIMIENTOS (Al tocar el ícono o movimiento)
+   EDICIÓN DE MOVIMIENTOS
    ========================================================= */
 function editTx(id){
   const tx=S.ex.find(x=>x.id==id);
@@ -1295,7 +1342,7 @@ function editTx(id){
     neg:tx.amt>=0?1:0,
     amt:String(Math.abs(tx.amt)),
     note:tx.note||'',
-    date:new Date(tx.date).toISOString().slice(0,10)
+    date:tx.date?new Date(tx.date).toISOString().slice(0,10):''
   };
   editTxForm();
 }
@@ -1314,16 +1361,13 @@ function editTxForm(){
     <div class="chs">${allCats.map(([n,i],idx)=>`<button type="button" class="chip ${F.cat===n?'on':''}" onclick="F.cat=getCats()[${idx}][0];editTxForm()">${i} ${esc(n)}</button>`).join('')}</div>
     <label>Monto (USD)</label>
     <input class="amt" inputmode="decimal" value="${esc(F.amt)}" oninput="F.amt=this.value">
-    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:10px;margin-top:4px">
-      <div>
-        <label>Fecha</label>
-        <input type="date" value="${esc(F.date)}" oninput="F.date=this.value">
-      </div>
-      <div>
-        <label>Nota</label>
-        <input value="${esc(F.note)}" oninput="F.note=this.value">
-      </div>
-    </div>
+
+    <label>Nota (opcional)</label>
+    <input placeholder="Ej. Almuerzo" value="${esc(F.note)}" oninput="F.note=this.value">
+
+    <label>Fecha *</label>
+    <input type="date" required value="${esc(F.date)}" oninput="F.date=this.value">
+
     <div class="row" style="margin:18px 0 0">
       <button type="button" class="sb" onclick="cl()">Cancelar</button>
       <button type="button" class="pb" onclick="saveEditTx()">Guardar cambios</button>
@@ -1335,6 +1379,7 @@ function editTxForm(){
 function saveEditTx(){
   const a=parseFloat(String(F.amt).replace(',','.'));
   if(!(a>0))return toast('Ingresa un monto válido');
+  if(!F.date)return toast('Selecciona una fecha');
   const idx=S.ex.findIndex(x=>x.id==F.editId);
   if(idx>=0){
     S.ex[idx]={
@@ -1343,7 +1388,7 @@ function saveEditTx(){
       cat:F.cat,
       amt:F.neg?a:-a,
       note:(F.note||'').trim(),
-      date:F.date?new Date(F.date+'T12:00:00').toISOString():S.ex[idx].date
+      date:new Date(F.date+'T12:00:00').toISOString()
     };
     save();
     cl();
@@ -1374,7 +1419,7 @@ function ef(id){
     neg:1,
     amt:'',
     note:'',
-    date:new Date().toISOString().slice(0,10)
+    date:''
   };
   efr();
 }
@@ -1382,7 +1427,6 @@ function ef(id){
 function efr(){
   const allCats=getCats();
   sheet(`
-    ${F.sc?'<div class="scn"><i></i>Escaneando ticket…</div>':''}
     <h2 style="font-size:17px;margin-bottom:12px">Registrar movimiento</h2>
     <div class="tg">
       <button type="button" class="${F.neg?'on':''}" onclick="F.neg=1;efr()">Gasto</button>
@@ -1401,23 +1445,17 @@ function efr(){
       <button type="button" class="chip chip-add" onclick="newCatForm()">+ Categoría</button>
     </div>
 
-    <label>Monto (USD)</label>
+    <label>Monto (USD) *</label>
     <input class="amt" inputmode="decimal" placeholder="0.00" value="${esc(F.amt)}" oninput="F.amt=this.value">
     <div class="chs" style="margin-top:8px">
       ${[5,10,20,50].map(v=>`<button type="button" class="chip" onclick="F.amt='${v}';efr()">$${v}</button>`).join('')}
-      <button type="button" class="chip" onclick="sn()">${ic('s',15)} Escanear ticket</button>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:10px;margin-top:4px">
-      <div>
-        <label>Fecha</label>
-        <input type="date" value="${esc(F.date)}" oninput="F.date=this.value">
-      </div>
-      <div>
-        <label>Nota (opcional)</label>
-        <input placeholder="Ej. Almuerzo" value="${esc(F.note)}" oninput="F.note=this.value">
-      </div>
-    </div>
+    <label>Nota (opcional)</label>
+    <input placeholder="Ej. Almuerzo" value="${esc(F.note)}" oninput="F.note=this.value">
+
+    <label>Fecha *</label>
+    <input type="date" required value="${esc(F.date)}" oninput="F.date=this.value">
 
     <div class="row" style="margin:18px 0 0">
       <button type="button" class="sb" onclick="cl()">Cancelar</button>
@@ -1427,8 +1465,8 @@ function efr(){
 }
 
 function newCatForm(){
-  F.ncName=F.ncName||'';
-  F.ncEmoji=F.ncEmoji||'🏷️';
+  F.ncName='';
+  F.ncEmoji='🏷️';
   const quickEmojis=['☕','🐶','🎮','📚','✈️','💅','🏋️','🎁','👶','🔧','🌿','🎵'];
   sheet(`
     <h2 style="font-size:17px;margin-bottom:4px">Nueva categoría</h2>
@@ -1441,13 +1479,13 @@ function newCatForm(){
       </div>
       <div>
         <label>Nombre de categoría</label>
-        <input id="cn_in" placeholder="Ej. Mascotas, Café, Gym" value="${esc(F.ncName)}" oninput="F.ncName=this.value">
+        <input id="cn_in" placeholder="Ej. Mascotas, Café, Gym" value="" oninput="F.ncName=this.value" onkeydown="if(event.key==='Enter'){event.preventDefault();saveNewCat();}">
       </div>
     </div>
 
-    <label>Sugerencias rápidas de emoji (o usa tu teclado)</label>
+    <label>Sugerencias rápidas de emoji</label>
     <div class="chs">
-      ${quickEmojis.map(em=>`<button type="button" class="chip ${F.ncEmoji===em?'on':''}" style="font-size:16px;padding:6px 10px" onclick="F.ncEmoji='${em}';$('#ce_in').value='${em}'">${em}</button>`).join('')}
+      ${quickEmojis.map(em=>`<button type="button" class="chip" style="font-size:16px;padding:6px 10px" onclick="F.ncEmoji='${em}';$('#ce_in').value='${em}'">${em}</button>`).join('')}
     </div>
 
     <div class="row" style="margin:18px 0 0">
@@ -1459,9 +1497,14 @@ function newCatForm(){
 }
 
 function saveNewCat(){
-  const name=(F.ncName||'').trim();
-  const emoji=(F.ncEmoji||'').trim()||'🏷️';
-  if(!name)return toast('Escribe un nombre para la categoría');
+  const inpName=$('#cn_in');
+  const inpEmoji=$('#ce_in');
+  const name=(inpName?inpName.value:(F.ncName||'')).trim();
+  const emoji=(inpEmoji?inpEmoji.value:(F.ncEmoji||'')).trim()||'🏷️';
+  if(!name){
+    if(inpName)inpName.focus();
+    return toast('Escribe un nombre para la categoría');
+  }
   if(getCats().some(c=>c[0].toLowerCase()===name.toLowerCase())){
     return toast('Esa categoría ya existe');
   }
@@ -1470,7 +1513,7 @@ function saveNewCat(){
   F.ncName='';
   F.ncEmoji='🏷️';
   save();
-  toast('Categoría "'+name+'" agregada');
+  toast('Categoría "'+name+'" guardada');
   efr();
 }
 
@@ -1496,38 +1539,20 @@ function catMgr(){
 }
 
 function delCat(idx){
+  const removed=S.customCats[idx];
   S.customCats.splice(idx,1);
+  if(removed && F.cat===removed[0]) F.cat='Comida';
   save();
   catMgr();
   toast('Categoría eliminada');
 }
 
-function sn(){
-  F.sc=1;
-  efr();
-  setTimeout(()=>{
-    const t=[
-      ['Súper',34.8,'Super Selectos Express'],
-      ['Comida',14.5,'Almuerzo ejecutivo'],
-      ['Transporte',22,'Gasolinera'],
-      ['Salud',18.75,'Farmacia']
-    ][Math.floor(Math.random()*4)];
-    F.sc=0;
-    F.neg=1;
-    F.cat=t[0];
-    F.amt=String(t[1]);
-    F.note=t[2];
-    efr();
-    toast('Ticket escaneado y autocompletado');
-  },950);
-}
-
 function sx(){
   const a=parseFloat(String(F.amt).replace(',','.'));
   if(!(a>0))return toast('Ingresa un monto mayor a cero');
-  const chosenDate=F.date
-    ? new Date(F.date+'T12:00:00').toISOString()
-    : new Date().toISOString();
+  if(!F.date)return toast('Selecciona la fecha del movimiento');
+  if(!F.cat || !getCats().some(c=>c[0]===F.cat)) F.cat='Comida';
+  const chosenDate=new Date(F.date+'T12:00:00').toISOString();
   const e={
     id:Date.now(),
     card:F.card,
@@ -1541,74 +1566,149 @@ function sx(){
   cl();
   render();
   const c=S.cards.find(x=>x.id==F.card);
-  toast(st(c).low?'⚠ Balance bajo en '+cardTitle(c):'Movimiento registrado',e.id);
+  toast(c&&st(c).low?'⚠ Balance bajo en '+cardTitle(c):'Movimiento registrado',e.id);
 }
 
 /* =========================================================
-   FORMULARIO DE TARJETA (Banco + Tipo Crédito/Débito)
+   FORMULARIO DE TARJETA (Banco con opciones + Alerta clara + 10 Colores)
    ========================================================= */
-function pvu(){
-  const g=i=>$('#'+i).value;
-  $('#pv').innerHTML=card({
-    id:F.id,
-    bank:g('fb')||'Banco',
-    type:g('ft'),
-    color:F.color,
-    d0:parseFloat(g('fd').replace(',','.'))||0,
-    thr:parseFloat(g('fp'))||20
-  },'nc',false);
+function selectBank(b){
+  F.bankChoice=b;
+  if(b!=='__otro__'){
+    F.bankCustom=b;
+  }else{
+    F.bankCustom='';
+  }
+  renderCardForm();
+  if(b==='__otro__'){
+    setTimeout(()=>{const el=$('#fb_custom');if(el)el.focus()},80);
+  }
 }
-function pc(el,h){
+
+function pvu(){
+  const bankName=F.bankChoice==='__otro__'
+    ? (($('#fb_custom')&&$('#fb_custom').value.trim())||'Otro banco')
+    : F.bankChoice;
+  const d0=parseFloat((($('#fd')&&$('#fd').value)||'0').replace(',','.'))||0;
+  const thr=parseFloat(($('#fp')&&$('#fp').value)||'20')||20;
+  const type=($('#ft')&&$('#ft').value)||'debito';
+
+  const pv=$('#pv');
+  if(pv){
+    pv.innerHTML=card({
+      id:F.id,
+      bank:bankName,
+      type:type,
+      color:F.color,
+      d0:d0,
+      thr:thr
+    },'nc',false);
+  }
+  const exEl=$('#thr_example');
+  if(exEl){
+    const pct=Math.min(100,Math.max(1,thr));
+    const montoAlerta=d0*(pct/100);
+    exEl.innerHTML=`Si tu saldo o límite baja al <b>${pct}%</b>${d0>0?` (es decir, cuando te queden <b>${fm(montoAlerta)}</b> o menos)`:''}, la app te mostrará una alerta de saldo bajo.`;
+  }
+}
+
+function pc(el,h,name){
   F.color=h;
+  F.colorName=name;
   document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('on',s===el));
+  const lbl=$('#sw_lbl');
+  if(lbl)lbl.textContent=name;
   pvu();
 }
+
 function cf(id){
   const c=S.cards.find(x=>x.id==id)||{};
-  F={id:c.id,color:c.color||PAL[0][1]};
+  const existingBank=(c.bank||'').trim();
+  const isPreset=BANKS.some(b=>b.toLowerCase()===existingBank.toLowerCase());
+  const matchedPreset=BANKS.find(b=>b.toLowerCase()===existingBank.toLowerCase());
+  const matchedPal=PAL.find(p=>p[1].toLowerCase()===(c.color||'').toLowerCase())||PAL[0];
+
+  F={
+    id:c.id,
+    bankChoice:c.id?(isPreset?matchedPreset:'__otro__'):BANKS[0],
+    bankCustom:c.id?existingBank:BANKS[0],
+    type:c.type||'debito',
+    d0:c.d0??'',
+    thr:c.thr??20,
+    color:matchedPal[1],
+    colorName:matchedPal[0]
+  };
+  renderCardForm();
+}
+
+function renderCardForm(){
+  const isOther=F.bankChoice==='__otro__';
   sheet(`
-    <h2 style="font-size:17px;margin-bottom:12px">${c.id?'Editar tarjeta':'Nueva tarjeta'}</h2>
+    <h2 style="font-size:17px;margin-bottom:12px">${F.id?'Editar tarjeta':'Nueva tarjeta'}</h2>
     <div id="pv" style="margin:0 -2px"></div>
-    <label>Banco</label>
-    <input id="fb" oninput="pvu()" value="${esc(c.bank||'')}" placeholder="Ej. Banco Agrícola, BAC Credomatic">
+
+    <label>Selecciona el banco *</label>
+    <div class="chs">
+      ${BANKS.map(b=>`<button type="button" class="chip ${F.bankChoice===b?'on':''}" onclick="selectBank('${b}')">${esc(b)}</button>`).join('')}
+      <button type="button" class="chip chip-add ${isOther?'on':''}" onclick="selectBank('__otro__')">+ Agregar otro</button>
+    </div>
+
+    ${isOther?`
+      <label>Escribe el nombre del banco *</label>
+      <input id="fb_custom" oninput="F.bankCustom=this.value;pvu()" value="${esc(F.bankCustom)}" placeholder="Ej. Banco Promerica, Davivienda...">
+    `:''}
+
     <label>Tipo de tarjeta</label>
-    <select id="ft" onchange="pvu()">
-      <option value="debito" ${c.type=='debito'?'selected':''}>Débito (saldo disponible)</option>
-      <option value="credito" ${c.type=='credito'?'selected':''}>Crédito (límite disponible)</option>
+    <select id="ft" onchange="F.type=this.value;pvu()">
+      <option value="debito" ${F.type=='debito'?'selected':''}>Débito (saldo disponible)</option>
+      <option value="credito" ${F.type=='credito'?'selected':''}>Crédito (límite disponible)</option>
     </select>
-    <label>Saldo o límite disponible (USD)</label>
-    <input id="fd" oninput="pvu()" inputmode="decimal" value="${c.d0??''}" placeholder="0.00">
-    <label>Avisar cuando quede el (%)</label>
-    <input id="fp" oninput="pvu()" inputmode="numeric" value="${c.thr??20}">
-    <label>Color</label>
-    <div class="sws">${PAL.map(p=>`<button type="button" class="sw ${p[1]==F.color?'on':''}" style="background:${p[1]}" aria-label="${p[0]}" title="${p[0]}" onclick="pc(this,'${p[1]}')"></button>`).join('')}</div>
-    <div class="row" style="margin:16px 0 0">
+
+    <label>Saldo o límite disponible (USD) *</label>
+    <input id="fd" oninput="F.d0=this.value;pvu()" inputmode="decimal" value="${esc(F.d0)}" placeholder="0.00">
+
+    <label>Alerta de saldo bajo (% restante)</label>
+    <input id="fp" oninput="F.thr=this.value;pvu()" inputmode="numeric" value="${esc(F.thr)}">
+    <div class="hint-box" id="thr_example"></div>
+
+    <label>Color de tarjeta: <span class="sw-name" id="sw_lbl">${esc(F.colorName)}</span></label>
+    <div class="sws">
+      ${PAL.map(p=>`<button type="button" class="sw ${p[1]==F.color?'on':''}" style="background:${p[1]}" aria-label="${p[0]}" title="${p[0]}" onclick="pc(this,'${p[1]}','${p[0]}')"></button>`).join('')}
+    </div>
+
+    <div class="row" style="margin:18px 0 0">
       <button type="button" class="sb" onclick="cl()">Cancelar</button>
       <button type="button" class="pb" onclick="sc2()">Guardar tarjeta</button>
     </div>
-    ${c.id?`<button type="button" class="dg" onclick="if(this.dataset.s){dd(${c.id})}else{this.dataset.s=1;this.textContent='¿Seguro? Toca otra vez para eliminar'}">Eliminar tarjeta</button>`:''}
+    ${F.id?`<button type="button" class="dg" onclick="if(this.dataset.s){dd(${F.id})}else{this.dataset.s=1;this.textContent='¿Seguro? Toca otra vez para eliminar'}">Eliminar tarjeta</button>`:''}
   `);
   pvu();
 }
+
 function sc2(){
-  const b=$('#fb').value.trim(),
-        d=parseFloat($('#fd').value.replace(',','.')),
-        p=parseFloat($('#fp').value)||20;
-  if(!b||!(d>=0))return toast('Escribe el nombre del banco y un saldo válido');
+  const b=F.bankChoice==='__otro__'
+    ? (($('#fb_custom')&&$('#fb_custom').value.trim())||'')
+    : F.bankChoice;
+  const d=parseFloat(String($('#fd').value).replace(',','.'));
+  const p=parseFloat($('#fp').value)||20;
+  if(!b)return toast('Selecciona o escribe el nombre del banco');
+  if(!(d>=0))return toast('Ingresa un saldo o límite válido');
   const o={
     id:F.id||Date.now(),
     bank:b,
     type:$('#ft').value,
     color:F.color,
     d0:d,
-    thr:Math.min(100,Math.max(0,p))
+    thr:Math.min(100,Math.max(1,p))
   };
   const i=S.cards.findIndex(c=>c.id==o.id);
   i>=0?S.cards[i]=o:S.cards.push(o);
   save();
   cl();
   render();
+  toast(F.id?'Tarjeta actualizada':'Tarjeta agregada');
 }
+
 function dd(id){
   S.cards=S.cards.filter(c=>c.id!=id);
   S.ex=S.ex.filter(e=>e.card!=id);
