@@ -614,9 +614,12 @@ nav .reg-btn:active span{transform:scale(.92)}
       connected: false,
       push(stateObj) {
         if (isRemoteUpdate) return;
-        const cleanData = JSON.parse(JSON.stringify(stateObj));
-        cleanData._updatedAt = new Date().toISOString();
-        setDoc(stateRef, cleanData).catch(err => console.warn("Sync pendiente:", err));
+        try {
+          const cleanData = JSON.parse(JSON.stringify(stateObj));
+          cleanData.customCats = (cleanData.customCats || []).map(c => Array.isArray(c) ? {n:c[0], e:c[1], c:c[2]} : c);
+          cleanData._updatedAt = new Date().toISOString();
+          setDoc(stateRef, cleanData).catch(err => console.warn("Sync pendiente:", err));
+        } catch (err) { console.warn("Sync no disponible:", err); }
       }
     };
 
@@ -883,14 +886,14 @@ S.customCats=S.customCats||[];
 const save=(pushCloud=true)=>{
   S._rev=Date.now();
   try{localStorage.setItem('radar',JSON.stringify(S))}catch(e){}
-  if(pushCloud && window.FB_SYNC) window.FB_SYNC.push(S);
+  if(pushCloud && window.FB_SYNC){try{window.FB_SYNC.push(S)}catch(e){console.warn('Nube no disponible',e)}}
 };
 
 window.getAppState=()=>S;
 window.applyRemoteState=(remote)=>{
   if(!remote||!remote.cards)return;
   S=Object.assign(seed(),remote);
-  S.customCats=remote.customCats||[];
+  S.customCats=(remote.customCats||[]).map(c=>Array.isArray(c)?c:[c.n,c.e,c.c||'#2c2a29']);
   S._rev=remote._rev||Date.parse(remote._updatedAt)||0;
   try{localStorage.setItem('radar',JSON.stringify(S))}catch(e){}
   render();
